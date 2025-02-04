@@ -1,0 +1,7 @@
+*~
+*.swp
+*.swo
+.vscode/
+*.o
+*.a
+*/cpen212alloc
