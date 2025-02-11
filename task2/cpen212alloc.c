@@ -18,7 +18,7 @@ Block Structure:
     -size field (size_t): Contains both size and allocation status
     -least significant bit used as allocated/free flag (1 = allocated, 0 = free)
     -actual block size stored in upper bits (masked with BLOCK_SIZE_MASK)
-    -size includes only the usable space (not header)
+    -size includes only the usable space and header
 2. User-Usable Space:
     -starts immediately after the header
     -8-byte aligned for proper memory alignment
@@ -40,7 +40,7 @@ void *cpen212_init(void *heap_start, void *heap_end) {
 
     //initialize first block (after the heap size)
     blockHeader *firstBlock = (blockHeader *)((char *)heap_start + sizeof(size_t));
-    firstBlock->size = heap_size - sizeof(size_t) - sizeof(blockHeader);
+    firstBlock->size = heap_size - sizeof(size_t);  //size includes header and payload
     setBlockAllocated(firstBlock, false);
 
     return heap_start; //return start of heap
@@ -67,23 +67,26 @@ void *cpen212_alloc(void *heap_handle, size_t nbytes) {
     //make sure the requested size is 8-byte aligned
     size_t alignedSize = (nbytes + 7) & ~7;
 
+    //calculate total size needed (payload + header)
+    size_t totalSize = alignedSize + sizeof(blockHeader);
+
     //traverse heap linearly
     while ((char *)current < (char *)heap_handle + heap_size) {
-        if (!isBlockAllocated(current) && getBlockSize(current) >= alignedSize) {
-            size_t remainingSize = getBlockSize(current) - alignedSize;
+        if (!isBlockAllocated(current) && getBlockSize(current) >= totalSize) {
+            size_t remainingSize = getBlockSize(current) - totalSize;
 
             //check if remaining space is big enough to create a new block
             if (remainingSize > sizeof(blockHeader)) {
                 //splitting
-                blockHeader *newBlock = (blockHeader *)((char *)current + sizeof(blockHeader) + alignedSize);
-                newBlock->size = remainingSize - sizeof(blockHeader);
+                blockHeader *newBlock = (blockHeader *)((char *)current + totalSize);
+                newBlock->size = remainingSize;
                 setBlockAllocated(newBlock, false);
 
                 //update the current block's size
-                current->size = alignedSize;
+                current->size = totalSize;
             } else {
                 //if remaining space is too small use the entire block
-                alignedSize = getBlockSize(current);
+                totalSize = getBlockSize(current);
             }
 
             //set current block as allocated
@@ -94,7 +97,7 @@ void *cpen212_alloc(void *heap_handle, size_t nbytes) {
         }
 
         //move to next block
-        current = (blockHeader *)((char *)current + sizeof(blockHeader) + getBlockSize(current));
+        current = (blockHeader *)((char *)current + getBlockSize(current));
     }
 
     //no sufficient free block found
@@ -124,7 +127,7 @@ void *cpen212_realloc(void *heap_handle, void *prev, size_t nbytes) {
 
     //get old block header and its size
     blockHeader *oldBlock = (blockHeader *)((char *)prev - sizeof(blockHeader));
-    size_t oldSize = getBlockSize(oldBlock);
+    size_t oldSize = getBlockSize(oldBlock) - sizeof(blockHeader);
 
     //allocate new block of requested size
     void *newBlock = cpen212_alloc(heap_handle, nbytes);
