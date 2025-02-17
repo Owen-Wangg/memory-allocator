@@ -12,13 +12,15 @@ Heap Memory Layout:
 Heap Size ((sizeof(size_t) bytes) <--heap handle points here
 Block Header (sizeof(blockHeader) bytes) (8 for now)
 User-Usable Space (8 byte aligned)
+Footer (sizeof(size_t) bytes)
+...more blocks
 
 Block Structure:
 1. Header (blockHeader struct):
     -size field (size_t): Contains both size and allocation status
     -least significant bit used as allocated/free flag (1 = allocated, 0 = free)
     -actual block size stored in upper bits (masked with BLOCK_SIZE_MASK)
-    -size includes only the usable space and header
+    -size includes usable space header and footer
 2. User-Usable Space:
     -starts immediately after the header
     -8-byte aligned for proper memory alignment
