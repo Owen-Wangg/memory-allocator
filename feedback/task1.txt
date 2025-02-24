@@ -1,0 +1,36 @@
+Task 1
+compiling the test has passed
+
+task1/first/1 test has passed
+task1/rest/1 test has passed
+task1/first/2 test has passed
+task1/rest/2 test has passed
+task1/first/3 test has passed
+task1/rest/3 test has passed
+task1/find/1 test has passed
+task1/find/2 test has passed
+task1/find/3 test has passed
+task1/find/4 test has passed
+task1/find/5 test has passed
+task1/find/6 test has passed
+task1/find/7 test has passed
+task1/find/8 test has passed
+task1/insert/1/vals test has passed
+task1/insert/1/addrs test has passed
+task1/insert/2/vals test has passed
+task1/insert/2/addrs test has passed
+task1/insert/3/vals test has passed
+task1/insert/3/addrs test has passed
+task1/insert/4/vals test has passed
+task1/insert/4/addrs test has passed
+task1/insert/5/vals test has passed
+task1/insert/5/addrs test has passed
+task1/insert/6/vals test has failed
+task1/insert/6/addrs test has failed
+task1/reverse/1/vals test has passed
+task1/reverse/1/addrs test has passed
+task1/reverse/2/vals test has passed
+task1/reverse/2/addrs test has passed
+task1/reverse/3/vals test has passed
+task1/reverse/3/addrs test has passed
+mark for this task: 1.9 / 2.0

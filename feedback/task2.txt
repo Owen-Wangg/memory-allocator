@@ -1,0 +1,22 @@
+Task 2
+compiling the test has passed
+task2/feature/1 test has passed
+task2/feature/2 test has passed
+task2/feature/3 test has passed
+task2/feature/4 test has passed
+task2/feature/5 test has passed
+task2/feature/6 test has passed
+task2/feature/7 test has passed
+task2/feature/8 test has passed
+task2/feature/9 test has passed
+task2/feature/10 test has passed
+task2/feature/11 test has passed
+task2/feature/12 test has passed
+task2/feature/13 test has passed
+task2/feature/14 test has passed
+task2/feature/15 test has passed
+task2/combo/1 test has passed
+task2/combo/2 test has passed
+task2/combo/3 test has passed
+task2/combo/4 test has passed
+mark for this task: 2.0 / 2.0

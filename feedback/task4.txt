@@ -1,0 +1,5 @@
+Task 4
+compiling the test has passed
+4 traces were passed out of 4
+0 regression was failed out of 28
+mark for this task: 2.0 / 2.0
